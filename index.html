@@ -1981,23 +1981,49 @@ setInterval(function(){
 
 /* BOOKING */
 
-function submitBooking(event){
+async function submitBooking(event){
 
   event.preventDefault();
 
-  let name=document.getElementById("name").value;
-  let service=document.getElementById("service").value;
-  let date=document.getElementById("date").value;
-  let time=document.getElementById("time").value;
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const service = document.getElementById("service").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+  const notes = document.querySelector("textarea").value.trim();
 
-  document.getElementById("popupText").innerHTML=
-    "Thank you <b>"+name+"</b>!<br><br>"+
-    "Service: <b>"+service+"</b><br>"+
-    "Date: <b>"+date+"</b><br>"+
-    "Time: <b>"+time+"</b><br><br>"+
-    "Hair Studio will contact you on your phone number.";
+  const { error } = await supabaseClient
+    .from("bookings")
+    .insert([
+      {
+        customer_name: name,
+        customer_phone: phone,
+        service: service,
+        booking_date: date,
+        booking_time: time,
+        status: "pending",
+        notes: notes
+      }
+    ]);
 
-  document.getElementById("popup").style.display="flex";
+  if(error){
+
+    console.error(error);
+
+    alert("Booking save nahi ho payi. Please try again.");
+
+    return;
+
+  }
+
+  document.getElementById("popupText").innerHTML =
+    "Thank you <b>" + name + "</b>!<br><br>" +
+    "Service: <b>" + service + "</b><br>" +
+    "Date: <b>" + date + "</b><br>" +
+    "Time: <b>" + time + "</b><br><br>" +
+    "Your appointment request has been received.";
+
+  document.getElementById("popup").style.display = "flex";
 
   event.target.reset();
 
