@@ -1,1 +1,983 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hair Studio | Owner Dashboard</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#090909;
+  color:white;
+}
+
+/* LOGIN */
+
+.login{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    radial-gradient(circle at center,#332516,#090909 60%);
+}
+
+.login-box{
+  width:360px;
+  padding:40px;
+  background:#151515;
+  border:1px solid #cda75d;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+.logo{
+  font-family:Georgia,serif;
+  color:#e4c078;
+  font-size:32px;
+  margin-bottom:5px;
+}
+
+.subtitle{
+  color:#777;
+  font-size:10px;
+  letter-spacing:3px;
+  margin-bottom:30px;
+}
+
+.login-box input{
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border-radius:10px;
+  border:1px solid #333;
+  background:#090909;
+  color:white;
+  outline:none;
+}
+
+.login-btn{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(135deg,#c99b4b,#f0d38d);
+  color:#111;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+  display:none;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:240px;
+  background:#101010;
+  border-right:1px solid #252525;
+  padding:25px 15px;
+}
+
+.brand{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.brand h2{
+  font-family:Georgia,serif;
+  color:#e4c078;
+}
+
+.brand small{
+  color:#666;
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.sidebar button{
+  width:100%;
+  padding:14px;
+  margin:4px 0;
+  border:0;
+  background:transparent;
+  color:#aaa;
+  text-align:left;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.sidebar button:hover,
+.sidebar button.active{
+  background:#211a10;
+  color:#e4c078;
+}
+
+.logout{
+  position:absolute;
+  bottom:20px;
+  left:15px;
+  width:calc(100% - 30px)!important;
+  color:#e77!important;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:240px;
+  padding:30px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.topbar h1{
+  font-family:Georgia,serif;
+  font-weight:normal;
+}
+
+.owner{
+  color:#aaa;
+  font-size:12px;
+}
+
+.owner span{
+  color:#e4c078;
+}
+
+/* CARDS */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.card{
+  background:#141414;
+  border:1px solid #242424;
+  border-radius:18px;
+  padding:22px;
+}
+
+.card small{
+  color:#777;
+}
+
+.card h2{
+  color:#e4c078;
+  margin-top:10px;
+}
+
+/* SECTIONS */
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.box{
+  background:#141414;
+  border:1px solid #252525;
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:20px;
+}
+
+.box h2{
+  font-family:Georgia,serif;
+  font-weight:normal;
+  margin-bottom:20px;
+}
+
+/* BOOKINGS */
+
+.booking{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:17px;
+  margin:10px 0;
+  background:#0d0d0d;
+  border:1px solid #222;
+  border-radius:12px;
+}
+
+.booking-info strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.booking-info small{
+  color:#777;
+}
+
+.actions button{
+  padding:8px 12px;
+  border-radius:7px;
+  border:0;
+  margin:3px;
+  cursor:pointer;
+}
+
+.confirm{
+  background:#193c25;
+  color:#7df0a1;
+}
+
+.cancel{
+  background:#3b1919;
+  color:#ff8888;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  text-align:left;
+  padding:14px;
+  border-bottom:1px solid #242424;
+  font-size:13px;
+}
+
+th{
+  color:#e4c078;
+}
+
+/* SERVICE */
+
+.service{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  background:#0d0d0d;
+  border:1px solid #242424;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.price{
+  color:#e4c078;
+}
+
+/* SETTINGS */
+
+.setting{
+  padding:18px 0;
+  border-bottom:1px solid #242424;
+}
+
+.setting label{
+  display:block;
+  color:#ddd;
+  margin-bottom:8px;
+}
+
+.setting input,
+.setting select{
+  width:100%;
+  max-width:500px;
+  padding:12px;
+  background:#090909;
+  color:white;
+  border:1px solid #333;
+  border-radius:8px;
+}
+
+.save{
+  margin-top:20px;
+  padding:12px 25px;
+  border:0;
+  border-radius:8px;
+  background:#d6ae61;
+  cursor:pointer;
+}
+
+/* MOBILE */
+
+.mobile-menu{
+  display:none;
+}
+
+@media(max-width:850px){
+
+  .sidebar{
+    width:210px;
+  }
+
+  .main{
+    margin-left:210px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    padding:20px;
+  }
+
+  .mobile-menu{
+    display:block;
+    margin-bottom:20px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .booking{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  table{
+    min-width:600px;
+  }
+
+  .box{
+    overflow:auto;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="login" id="login">
+
+  <div class="login-box">
+
+    <div class="logo">
+      HAIR STUDIO
+    </div>
+
+    <div class="subtitle">
+      OWNER PANEL • SARSAWA
+    </div>
+
+    <input
+      type="text"
+      id="username"
+      placeholder="Owner ID"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button
+      class="login-btn"
+      onclick="login()"
+    >
+      LOGIN
+    </button>
+
+    <p
+      id="loginMsg"
+      style="color:#e77;font-size:11px;margin-top:12px"
+    ></p>
+
+  </div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div class="dashboard" id="dashboard">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="brand">
+
+      <h2>HAIR STUDIO</h2>
+
+      <small>OWNER PANEL</small>
+
+    </div>
+
+    <button
+      class="active"
+      onclick="showSection('dashboardHome',this)"
+    >
+      📊 Dashboard
+    </button>
+
+    <button
+      onclick="showSection('bookings',this)"
+    >
+      📅 Bookings
+    </button>
+
+    <button
+      onclick="showSection('customers',this)"
+    >
+      👥 Customers
+    </button>
+
+    <button
+      onclick="showSection('services',this)"
+    >
+      ✂ Services
+    </button>
+
+    <button
+      onclick="showSection('settings',this)"
+    >
+      ⚙ Settings
+    </button>
+
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      🚪 Logout
+    </button>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <div class="mobile-menu">
+      ☰ <b>HAIR STUDIO OWNER</b>
+    </div>
+
+
+    <div class="topbar">
+
+      <h1>Dashboard</h1>
+
+      <div class="owner">
+        Owner:
+        <span>Hair Studio</span>
+      </div>
+
+    </div>
+
+
+    <!-- DASHBOARD HOME -->
+
+    <section
+      class="section active"
+      id="dashboardHome"
+    >
+
+      <div class="cards">
+
+        <div class="card">
+          <small>Today's Bookings</small>
+          <h2>8</h2>
+        </div>
+
+        <div class="card">
+          <small>Pending</small>
+          <h2>3</h2>
+        </div>
+
+        <div class="card">
+          <small>Confirmed</small>
+          <h2>5</h2>
+        </div>
+
+        <div class="card">
+          <small>Today's Revenue</small>
+          <h2>₹250</h2>
+        </div>
+
+      </div>
+
+
+      <div class="box">
+
+        <h2>Today's Appointments</h2>
+
+        <div class="booking">
+
+          <div class="booking-info">
+
+            <strong>10:00 AM — Rahul</strong>
+
+            <small>
+              Men's Haircut • ₹50
+            </small>
+
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="confirm"
+              onclick="alert('Booking confirmed!')"
+            >
+              Confirm
+            </button>
+
+            <button
+              class="cancel"
+              onclick="alert('Booking cancelled!')"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="booking">
+
+          <div class="booking-info">
+
+            <strong>12:00 PM — Amit</strong>
+
+            <small>
+              Men's Haircut • ₹50
+            </small>
+
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="confirm"
+              onclick="alert('Booking confirmed!')"
+            >
+              Confirm
+            </button>
+
+            <button
+              class="cancel"
+              onclick="alert('Booking cancelled!')"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="booking">
+
+          <div class="booking-info">
+
+            <strong>5:00 PM — Mohit</strong>
+
+            <small>
+              Men's Haircut • ₹50
+            </small>
+
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="confirm"
+              onclick="alert('Booking confirmed!')"
+            >
+              Confirm
+            </button>
+
+            <button
+              class="cancel"
+              onclick="alert('Booking cancelled!')"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOOKINGS -->
+
+    <section
+      class="section"
+      id="bookings"
+    >
+
+      <div class="box">
+
+        <h2>All Bookings</h2>
+
+        <table>
+
+          <tr>
+            <th>Time</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+
+          <tr>
+            <td>10:00 AM</td>
+            <td>Rahul</td>
+            <td>Haircut</td>
+            <td>₹50</td>
+            <td>Pending</td>
+          </tr>
+
+          <tr>
+            <td>12:00 PM</td>
+            <td>Amit</td>
+            <td>Haircut</td>
+            <td>₹50</td>
+            <td>Confirmed</td>
+          </tr>
+
+          <tr>
+            <td>5:00 PM</td>
+            <td>Mohit</td>
+            <td>Haircut</td>
+            <td>₹50</td>
+            <td>Pending</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- CUSTOMERS -->
+
+    <section
+      class="section"
+      id="customers"
+    >
+
+      <div class="box">
+
+        <h2>Customers</h2>
+
+        <table>
+
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Visits</th>
+            <th>Total Spent</th>
+          </tr>
+
+          <tr>
+            <td>Rahul</td>
+            <td>98XXXXXX12</td>
+            <td>4</td>
+            <td>₹200</td>
+          </tr>
+
+          <tr>
+            <td>Amit</td>
+            <td>97XXXXXX45</td>
+            <td>2</td>
+            <td>₹100</td>
+          </tr>
+
+          <tr>
+            <td>Mohit</td>
+            <td>99XXXXXX87</td>
+            <td>6</td>
+            <td>₹300</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- SERVICES -->
+
+    <section
+      class="section"
+      id="services"
+    >
+
+      <div class="box">
+
+        <h2>Manage Services</h2>
+
+        <div class="service">
+
+          <div>
+            <strong>Men's Haircut</strong>
+            <br>
+            <small style="color:#777">
+              Classic haircut
+            </small>
+          </div>
+
+          <div class="price">
+            ₹50
+          </div>
+
+        </div>
+
+
+        <div class="service">
+
+          <div>
+            <strong>Hair Styling</strong>
+            <br>
+            <small style="color:#777">
+              Styling service
+            </small>
+          </div>
+
+          <div class="price">
+            Ask
+          </div>
+
+        </div>
+
+
+        <div class="service">
+
+          <div>
+            <strong>Beard Grooming</strong>
+            <br>
+            <small style="color:#777">
+              Beard service
+            </small>
+          </div>
+
+          <div class="price">
+            Ask
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section
+      class="section"
+      id="settings"
+    >
+
+      <div class="box">
+
+        <h2>Salon Settings</h2>
+
+        <div class="setting">
+
+          <label>
+            Salon Name
+          </label>
+
+          <input
+            value="Hair Studio"
+          >
+
+        </div>
+
+
+        <div class="setting">
+
+          <label>
+            Location
+          </label>
+
+          <input
+            value="Railway Road, Sarsawa"
+          >
+
+        </div>
+
+
+        <div class="setting">
+
+          <label>
+            Phone
+          </label>
+
+          <input
+            value="+91 74095 32891"
+          >
+
+        </div>
+
+
+        <div class="setting">
+
+          <label>
+            Opening Time
+          </label>
+
+          <input
+            type="time"
+            value="08:00"
+          >
+
+        </div>
+
+
+        <div class="setting">
+
+          <label>
+            Closing Time
+          </label>
+
+          <input
+            type="time"
+            value="22:00"
+          >
+
+        </div>
+
+
+        <button
+          class="save"
+          onclick="alert('Settings saved!')"
+        >
+          Save Settings
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script>
+
+/* DEMO LOGIN */
+
+function login(){
+
+  let user=document.getElementById("username").value;
+
+  let pass=document.getElementById("password").value;
+
+  /*
+    DEMO ONLY
+
+    Username: owner
+    Password: 1234
+  */
+
+  if(user==="owner" && pass==="1234"){
+
+    document.getElementById("login").style.display="none";
+
+    document.getElementById("dashboard").style.display="block";
+
+  }else{
+
+    document.getElementById("loginMsg").innerText=
+      "Demo login: owner / 1234";
+
+  }
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+  document.getElementById("dashboard").style.display="none";
+
+  document.getElementById("login").style.display="flex";
+
+}
+
+
+/* SECTIONS */
+
+function showSection(id,button){
+
+  document.querySelectorAll(".section")
+    .forEach(function(section){
+
+      section.classList.remove("active");
+
+    });
+
+  document.getElementById(id)
+    .classList.add("active");
+
+
+  document.querySelectorAll(".sidebar button")
+    .forEach(function(btn){
+
+      btn.classList.remove("active");
+
+    });
+
+  button.classList.add("active");
+
+}
+
+</script>
+
+</body>
+</html>
