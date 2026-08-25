@@ -1981,52 +1981,58 @@ setInterval(function(){
 
 /* BOOKING */
 
-async function submitboking(event){
+ async function submitBooking(event) {
 
   event.preventDefault();
 
-  const name = document.getElementByld("name").value.trim();
-  const phone = document.getElementByL("phone").value.trim();
-  const servise = document.getElementByL("service").value;
-  const date = document.getElementByL("date").value;
-  const time = document.getElementByL("time").value;
-  const notes = document.querySelector("textarea").value.trim();
+  try {
 
-  const {error} = await supabaseClient
-   .from("bookings")
-   .insert([
-     {
-      
-        customer_name: name,
-        customer_phone: phone,
-        service: service,
-        booking_date: date,
-        booking_time: time,
-        status: "pending",
-        notes: notes
-      }
-    ]);
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const service = document.getElementById("service").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const notes = document.querySelector("textarea").value.trim();
 
-  if(error){
+    const { data, error } = await supabaseClient
+      .from("bookings")
+      .insert([
+        {
+          customer_name: name,
+          service: service,
+          booking_date: date,
+          booking_time: time,
+          status: "pending",
+          notes: notes
+        }
+      ])
+      .select();
 
-    console.error(error);
+    if (error) {
+      alert("SUPABASE ERROR:\n" + error.message);
+      console.error(error);
+      return;
+    }
 
-    alert("Booking save nahi ho payi. Please try again.");
+    alert("✅ BOOKING SAVED SUCCESSFULLY!");
 
-    return;
+    document.getElementById("popupText").innerHTML =
+      "Thank you <b>" + name + "</b>!<br><br>" +
+      "Service: <b>" + service + "</b><br>" +
+      "Date: <b>" + date + "</b><br>" +
+      "Time: <b>" + time + "</b><br><br>" +
+      "Your appointment has been saved successfully.";
+
+    document.getElementById("popup").style.display = "flex";
+
+    event.target.reset();
+
+  } catch (err) {
+
+    alert("CODE ERROR:\n" + err.message);
+    console.error(err);
 
   }
-
-  document.getElementById("popupText").innerHTML =
-    "Thank you <b>" + name + "</b>!<br><br>" +
-    "Service: <b>" + service + "</b><br>" +
-    "Date: <b>" + date + "</b><br>" +
-    "Time: <b>" + time + "</b><br><br>" +
-    "Your appointment request has been received.";
-
-  document.getElementById("popup").style.display = "flex";
-
-  event.target.reset();
 
 }
 
