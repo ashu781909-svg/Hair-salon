@@ -1995,18 +1995,17 @@ setInterval(function(){
     const notes = document.querySelector("textarea").value.trim();
 
     const { data, error } = await supabaseClient
-      .from("bookings")
-      .insert([
-        {
-          customer_name: name,
-          service: service,
-          booking_date: date,
-          booking_time: time,
-          status: "pending",
-          notes: notes
-        }
-      ])
-      .select();
+  .from("bookings")
+  .insert([
+    {
+      customer_name: name,
+      service: service,
+      booking_date: date,
+      booking_time: time,
+      status: "pending",
+      notes: notes
+    }
+  ]);
 
     if (error) {
       alert("SUPABASE ERROR:\n" + error.message);
