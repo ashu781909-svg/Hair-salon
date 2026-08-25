@@ -1995,7 +1995,7 @@ setInterval(function(){
     const notes = document.querySelector("textarea").value.trim();
 
     const { data, error } = await supabaseClient
-      .from("booking")
+      .from("bookings")
       .insert([
         {
           customer_name: name,
