@@ -1996,16 +1996,19 @@ setInterval(function(){
 
     const { data, error } = await supabaseClient
   .from("bookings")
-  .insert([
-    {
-      customer_name: name,
-      service: service,
-      booking_date: date,
-      booking_time: time,
-      status: "pending",
-      notes: notes
-    }
-  ]);
+      
+      .insert([
+  {
+    customer_name: name,
+    customer_phone: phone,
+    service: service,
+    booking_date: date,
+    booking_time: time,
+    status: "pending",
+    notes: notes
+  }
+])
+      
 
     if (error) {
       alert("SUPABASE ERROR:\n" + error.message);
