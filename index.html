@@ -1981,21 +1981,22 @@ setInterval(function(){
 
 /* BOOKING */
 
-async function submitBooking(event){
+async function submitboking(event){
 
   event.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const service = document.getElementById("service").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
+  const name = document.getElementByld("name").value.trim();
+  const phone = document.getElementByL("phone").value.trim();
+  const servise = document.getElementByL("service").value;
+  const date = document.getElementByL("date").value;
+  const time = document.getElementByL("time").value;
   const notes = document.querySelector("textarea").value.trim();
 
-  const { error } = await supabaseClient
-    .from("bookings")
-    .insert([
-      {
+  const {error} = await supabaseClient
+   .from("bookings")
+   .insert([
+     {
+      
         customer_name: name,
         customer_phone: phone,
         service: service,
