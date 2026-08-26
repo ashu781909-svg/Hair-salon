@@ -976,7 +976,13 @@ function showSection(id,button){
   button.classList.add("active");
 
 }
+const SUPABASE_URL = "https://hjmgiumbkflijskxiuql.supabase.co";
+const SUPABASE_KEY = "YOUR_EXISTING_PUBLISHABLE_KEY";
 
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 </script>
 
 </body>
