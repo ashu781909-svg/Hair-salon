@@ -882,12 +882,13 @@ const supabaseClient = window.supabase.createClient(
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td>${booking.booking_time || "-"}</td>
-      <td>${booking.customer_name || "-"}</td>
-      <td>${booking.service || "-"}</td>
-      <td>-</td>
-      <td>${booking.status || "pending"}</td>
-    `;
+  <td>${booking.booking_date || "-"}</td>
+  <td>${booking.booking_time || "-"}</td>
+  <td>${booking.customer_name || "-"}</td>
+  <td>${booking.customer_phone || "-"}</td>
+  <td>${booking.service || "-"}</td>
+  <td>${booking.status || "pending"}</td>
+`;
 
     bookingList.appendChild(row);
 
