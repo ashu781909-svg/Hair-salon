@@ -896,20 +896,7 @@ const supabaseClient = window.supabase.createClient(
 
 loadBookings();
 
-  const { data, error } = await supabaseClient
-    .from("bookings")
-    .select("*")
-    .order("created_at", { ascending: false });
 
-  if (error) {
-    console.error("BOOKINGS ERROR:", error);
-    return;
-  }
-
-  console.log("REAL BOOKINGS:", data);
-
-}
-  loadBookings();
 </script>
 
 </body>
