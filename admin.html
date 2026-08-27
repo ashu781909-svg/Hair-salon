@@ -849,6 +849,53 @@ const supabaseClient = window.supabase.createClient(
 );
   async function loadBookings() {
 
+  const bookingList = document.getElementById("allBookings");
+
+  const { data, error } = await supabaseClient
+    .from("bookings")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+
+    console.error("BOOKINGS ERROR:", error);
+
+    bookingList.innerHTML =
+      '<tr><td colspan="5">Unable to load bookings.</td></tr>';
+
+    return;
+  }
+
+  if (!data || data.length === 0) {
+
+    bookingList.innerHTML =
+      '<tr><td colspan="5">No bookings yet.</td></tr>';
+
+    return;
+  }
+
+  bookingList.innerHTML = "";
+
+  data.forEach(function(booking) {
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${booking.booking_time || "-"}</td>
+      <td>${booking.customer_name || "-"}</td>
+      <td>${booking.service || "-"}</td>
+      <td>-</td>
+      <td>${booking.status || "pending"}</td>
+    `;
+
+    bookingList.appendChild(row);
+
+  });
+
+}
+
+loadBookings();
+
   const { data, error } = await supabaseClient
     .from("bookings")
     .select("*")
