@@ -857,6 +857,7 @@ const supabaseClient = window.supabase.createClient(
     .from("bookings")
     .select("*")
     .order("created_at", { ascending: false });
+    console.log("SUPABASE RESULT:", data, error);
 
   if (error) {
 
