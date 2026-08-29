@@ -906,6 +906,67 @@ const supabaseClient = window.supabase.createClient(
 
 loadBookings();
 
+  async function loadCustomers() {
+
+  const customerList = document.getElementById("customersList");
+
+  const { data, error } = await supabaseClient
+    .from("bookings")
+    .select("customer_name, customer_phone, service");
+
+  if (error) {
+    console.error("CUSTOMERS ERROR:", error);
+    customerList.innerHTML =
+      '<tr><td colspan="4">Unable to load customers.</td></tr>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    customerList.innerHTML =
+      '<tr><td colspan="4">No customers yet.</td></tr>';
+    return;
+  }
+
+  customerList.innerHTML = "";
+
+  const customers = {};
+
+  data.forEach(function(booking) {
+
+    const key = booking.customer_phone || booking.customer_name;
+
+    if (!customers[key]) {
+      customers[key] = {
+        name: booking.customer_name,
+        phone: booking.customer_phone,
+        visits: 0,
+        spent: 0
+      };
+    }
+
+    customers[key].visits++;
+
+  });
+
+  Object.values(customers).forEach(function(customer) {
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${customer.name || "-"}</td>
+      <td>${customer.phone || "-"}</td>
+      <td>${customer.visits}</td>
+      <td>₹${customer.spent}</td>
+    `;
+
+    customerList.appendChild(row);
+
+  });
+
+}
+
+loadCustomers();
+
 
 </script>
 
